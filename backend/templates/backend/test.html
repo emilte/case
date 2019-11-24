@@ -1,0 +1,36 @@
+{% extends "case/base.html" %}
+
+{% block body %}
+
+
+    <h1>Backend test:</h1>
+
+    <div class="border rounded p-2">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+                </p>
+            {% endfor %}
+
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            <button class="btn btn-secondary mt-3" type="submit" name="button">Send</button>
+        </form>
+    </div>
+
+    <div id="msg" class="container rounded bg-info mt-2"> <h2>{{ msg }}</h2> </div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#msg").fadeOut(2000);
+        })
+    </script>
+{% endblock %}

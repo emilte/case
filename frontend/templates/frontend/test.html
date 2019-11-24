@@ -1,0 +1,98 @@
+{% extends "case/base.html" %}
+
+{% block body %}
+
+    <h1>Frontend test:</h1>
+
+    <div class="border rounded p-2">
+        <form id="form" action="https://heksemel.no/case/submit.php" method="post">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                <p>
+                    {{ field.label_tag }}
+                    {{ field }}
+                </p>
+            {% endfor %}
+
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            <button class="btn btn-secondary mt-3" type="submit" name="button">Send</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js" integrity="sha256-LddDRH6iUPqbp3x9ClMVGkVEvZTrIemrY613shJ/Jgw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js" integrity="sha256-xLhce0FUawd11QSwrvXSwST0oHhOolNoH9cUXAcsIAg=" crossorigin="anonymous"></script>
+
+    {# https://jqueryvalidation.org/validate/ #}
+    {# https://api.jquery.com/submit/ #}
+
+    <script>
+        function between(x, min, max) {
+            // https://no.wikipedia.org/wiki/Nummerplan_(E.164)
+            return x >= min && x <= max;
+        }
+
+        $.validator.addMethod("phone_no", function(value, element, active) {
+            var min1 = 40000000; var max1 = 49999999;
+            var min2 = 90000000; var max2 = 99999999;
+            var valid = between(value, min1, max1) || between(value, min2, max2);
+            return active && valid;
+        },
+            "Invalid Norwegian phone number. (40 00 00 00 - 49 99 99 99) or (90 00 00 00 - 99 99 99 99)" // Error message
+        );
+
+        $('#form').validate({
+            submitHandler: function() {
+                console.log('Submitted');
+
+                $("#form").ajaxSubmit({
+                    url: 'https://heksemel.no/case/submit.php',
+                    success: function(response) {
+                        console.log(response);
+                    },
+                });
+            },
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                email: {
+                    email: true,
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                    phone_no: true,
+                },
+                areacode: {
+                    minlength: 4,
+                    max: 9999,
+                }
+            },
+            messages: {
+                name: {
+                    required: "Whaaat? Don't you have a name?",
+                    minlength: jQuery.validator.format("At least {0} characters required!"),
+                },
+                email: {
+                    required: "We kind of need this email to contact you :)"
+                },
+                phone: {
+                    required: "How are we else supposed to talk with you?",
+                },
+                areacode: {
+                    max: 'Areacodes in Norway contain only 4 digits. E.g. 7051'
+                },
+            },
+        })
+
+        $(document).ready(function() {
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,11 @@
+body {
+    margin-top: 50px;
+}
+
+.error {
+    color: red;
+}
+
+.required::after {
+    content: '*';
+}

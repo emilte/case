@@ -1,11 +1,11 @@
 from django import forms
 
 class Info(forms.Form):
-    applicant = forms.CharField(initial="emil", required=False, widget=forms.HiddenInput)
-    name = forms.CharField(initial="Emil Telstad", required=False, min_length=2)
-    email = forms.EmailField(initial="emil.telstad@gmail.com", required=False)
-    phone = forms.IntegerField(initial="41325358", required=False)
-    areacode = forms.IntegerField(initial=7051, required=False)
+    applicant = forms.CharField(initial="emil", required=True, widget=forms.HiddenInput)
+    name = forms.CharField(initial="Emil Telstad", required=True, min_length=2)
+    email = forms.EmailField(initial="emil.telstad@gmail.com", required=True)
+    phone = forms.IntegerField(initial="41325358", required=True)
+    areacode = forms.IntegerField(initial=7051, required=False, max_value=9999)
     comment = forms.CharField(required=False, widget=forms.Textarea)
 
     required_css_class = 'required'
