@@ -35,12 +35,12 @@ class Test(View):
                 email = EmailMessage()
                 email.set_content('Skjemaet som ble sendt inn er akseptert')
 
-                email['Subject'] = 'Case - backend'
+                email['Subject'] = 'Varsel'
                 email['From'] = sent_from
                 email['To'] = to
 
                 server.send_message(email)
-                
+
             except Exception as e:
                 print(e)
 
