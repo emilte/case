@@ -67,10 +67,14 @@
                 },
                 phone: {
                     required: true,
+                    number: true,
                     phone_no: true,
                 },
                 areacode: {
+                    number: true,
                     minlength: 4,
+                    maxlength: 4,
+                    min: 0,
                     max: 9999,
                 }
             },

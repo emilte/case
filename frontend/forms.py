@@ -2,7 +2,7 @@ from django import forms
 
 class Info(forms.Form):
     applicant = forms.CharField(initial="emil", required=False, widget=forms.HiddenInput)
-    name = forms.CharField(initial="Emil Telstad", required=False, min_length=2)
+    name = forms.CharField(initial="Emil Telstad", required=False)
     email = forms.EmailField(initial="emil.telstad@gmail.com", required=False)
     phone = forms.IntegerField(initial="41325358", required=False)
     areacode = forms.IntegerField(initial=7051, required=False)

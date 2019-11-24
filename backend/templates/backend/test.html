@@ -2,6 +2,7 @@
 
 {% block body %}
 
+    <div id="msg" class="container rounded bg-info mt-2"> <h2>{{ msg }}</h2> </div>
 
     <h1>Backend test:</h1>
 
@@ -12,6 +13,9 @@
                 <p>
                     {{ field.label_tag }}
                     {{ field }}
+                    {% for error in field.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
                 </p>
             {% endfor %}
 
@@ -22,7 +26,6 @@
         </form>
     </div>
 
-    <div id="msg" class="container rounded bg-info mt-2"> <h2>{{ msg }}</h2> </div>
 
 
 {% endblock %}

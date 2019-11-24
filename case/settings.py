@@ -11,6 +11,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+RECAPTCHA_PUBLIC_KEY = '6Lc5WMQUAAAAAEYyYLcgAcWiFL7u7T15HwyxM2b_'
+RECAPTCHA_PRIVATE_KEY = '6Lc5WMQUAAAAAD49dIjU8vBIZDFFkO-U6tEFhqu4'
+
 
 # Application definition
 
@@ -21,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'captcha',
     'frontend',
     'backend',
     'case',
